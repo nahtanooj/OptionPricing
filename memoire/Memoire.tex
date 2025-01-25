@@ -1,0 +1,605 @@
+\documentclass[11pt, oneside, a4paper, titlepage]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{natbib}
+\usepackage{appendix}
+\usepackage{amsmath} % For mathematical formulas
+
+% Hyperlink settings
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+\urlstyle{same}
+
+% Page margins
+\geometry{
+    right=35mm,
+    left=35mm,
+    top=35mm,
+    bottom=35mm,
+}
+
+% Paragraph settings
+\setlength{\parindent}{1cm}
+\linespread{1.5}
+
+% Renaming Contents
+\renewcommand\contentsname{\textbf{Summary}}
+
+\begin{document}
+
+% Custom title page
+\begin{titlepage}
+    \centering
+    \includegraphics[width=0.3\textwidth]{logo-tsp.jpg}\par\vspace{1cm}
+    {\scshape\LARGE Polytechnique Institute of Paris \par}
+    \vspace{1cm}
+    {\scshape\Large Memoire\par}
+    \vspace{1.5cm}
+    {\huge\bfseries Option Pricing: Stochastichal models implementation in Python \par}
+    \vspace{2cm}
+    {\Large\itshape Bob \\ Jack \par}
+    \vfill
+    Supervised by\par
+    \textsc{\Large AB}
+    \vfill
+    {\large 30/01/2025 \par}
+\end{titlepage}
+
+% Table of contents
+\tableofcontents
+\newpage
+
+% Abstract
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+This memoire focuses on the implementation and simulation of stochastic models in finance using Python, with applications to the Black-Scholes, Heston, Dupire, and SABR models. The primary objectives are twofold: first, to implement and simulate these stochastic models to understand and predict the dynamics of financial asset prices; and second, to design and implement trading algorithms based on these models. The methodology involves a comprehensive review of the theoretical foundations of the models, followed by their implementation and calibration using real financial data. Subsequently, trading algorithms will be developed and tested in simulated market environments to evaluate their performance in terms of profitability and risk management. The expected outcomes include optimized implementations of financial models, validated trading algorithms, and a detailed analysis of their performance under various market conditions. This work requires a strong foundation in financial mathematics, probabilities, and proficiency in Python programming, particularly with libraries such as numpy, pandas, and scipy.
+
+% Chapter 1
+\chapter{Literature Review}
+\section{Black-Scholes-Merton}
+
+\subsection{Black-Scholes-Merton Model}
+
+The Black-Scholes-Merton (BSM) model is a cornerstone in quantitative finance, providing a theoretical framework for pricing European-style options. Developed by Fischer Black, Myron Scholes, and Robert Merton in 1973, the model derives a closed-form solution for the price of a European call or put option under specific assumptions.
+
+\subsubsection{Hypotheses of the BSM Model}
+
+The BSM model is based on the following key assumptions:
+
+\begin{enumerate}
+    \item \textbf{Efficient Markets}: The market is efficient, meaning that asset prices fully reflect all available information.
+    \item \textbf{No Arbitrage}: There are no arbitrage opportunities, meaning it is impossible to make a riskless profit.
+    \item \textbf{Lognormal Distribution}: The underlying asset price follows a geometric Brownian motion (GBM), implying that the logarithm of the asset price is normally distributed.
+    \item \textbf{Constant Volatility}: The volatility of the underlying asset's returns is constant over time.
+    \item \textbf{Risk-Free Rate}: The risk-free interest rate is constant and known.
+    \item \textbf{No Dividends}: The underlying asset does not pay dividends during the life of the option.
+    \item \textbf{Continuous Trading}: Trading in the underlying asset and the option is continuous, with no transaction costs or taxes.
+\end{enumerate}
+
+\subsubsection{Geometric Brownian Motion (GBM)}
+
+The dynamics of the underlying asset price $S_t$ are modeled using geometric Brownian motion (GBM), which is described by the following stochastic differential equation (SDE):
+
+\[
+dS_t = \mu S_t \, dt + \sigma S_t \, dW_t
+\]
+
+Where:
+\begin{itemize}
+    \item $S_t$: The price of the underlying asset at time $t$.
+    \item $\mu$: The expected annualized return (drift) of the asset.
+    \item $\sigma$: The annual volatility of the asset's returns.
+    \item $W_t$: A Wiener process (standard Brownian motion).
+\end{itemize}
+
+The solution to this SDE is:
+
+\[
+S_t = S_0 \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\right)
+\]
+
+Where:
+\begin{itemize}
+    \item $S_0$: The initial price of the underlying asset at time $t = 0$.
+    \item $\exp(\cdot)$: The exponential function.
+\end{itemize}
+
+This equation shows that the asset price $S_t$ is lognormally distributed, with the logarithm of the price following a normal distribution.
+
+
+\subsubsection{The Black-Scholes-Merton Equation}
+
+The BSM model describes the evolution of the option price \( V(S, t) \) as a function of the underlying asset price \( S \) and time \( t \). The partial differential equation (PDE) governing the option price is:
+
+\[
+\frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + r S \frac{\partial V}{\partial S} - r V = 0
+\]
+
+Where:
+\begin{itemize}
+    \item \( V(S, t) \): The option price.
+    \item \( S \): The price of the underlying asset.
+    \item \( t \): Time.
+    \item \( \sigma \): The volatility of the underlying asset's returns.
+    \item \( r \): The risk-free interest rate.
+\end{itemize}
+
+\subsubsection{Closed-Form Solutions for European Options}
+
+The BSM model provides closed-form solutions for the prices of European call and put options.
+
+\begin{enumerate}
+    \item \textbf{European Call Option}:
+    \[
+    c = S_0 N(d_1) - K e^{-r(T)} N(d_2)
+    \]
+    \item \textbf{European Put Option}:
+    \[
+    p = K e^{-r(T)} N(-d_2) - S_0 N(-d_1)
+    \]
+\end{enumerate}
+
+Where:
+\begin{itemize}
+    \item \( c \): Price of the European call option.
+    \item \( p \): Price of the European put option.
+    \item \( S_0 \): The initial price of the underlying asset.
+    \item \( K \): The strike price of the option.
+    \item \( T \): The time to maturity, in years, of the option.
+    \item \( N(\cdot) \): The cumulative distribution function (CDF) of the standard normal distribution.
+    \item \( d_1 \) and \( d_2 \): Intermediate variables defined as:
+    \[
+    d_1 = \frac{\ln\left(\frac{S}{K}\right) + \left(r + \frac{\sigma^2}{2}\right)(T)}{\sigma \sqrt{T}}
+    \]
+    \[
+    d_2 = d_1 - \sigma \sqrt{T}
+    \]
+\end{itemize}
+
+\subsubsection{Historical Volatility Calculation}
+
+Historical volatility is a key input for the BSM model. It is calculated as the standard deviation of the logarithmic returns of the underlying asset over a specified period. The steps to compute historical volatility are as follows:
+
+\begin{enumerate}
+    \item \textbf{Compute Logarithmic Returns}:
+    For a series of asset prices $S_0, S_1, \dots, S_n$, the logarithmic returns $R_t$ are calculated as:
+    \[
+    R_t = \ln\left(\frac{S_t}{S_{t-1}}\right)
+    \]
+    \item \textbf{Calculate the Mean Return}:
+    The mean return $\bar{R}$ is computed as:
+    \[
+    \bar{R} = \frac{1}{n} \sum_{t=1}^n R_t
+    \]
+    \item \textbf{Compute the Variance of Returns}:
+    The variance $\sigma^2$ is calculated as:
+    \[
+    \sigma^2 = \frac{1}{n-1} \sum_{t=1}^n (R_t - \bar{R})^2
+    \]
+    \item \textbf{Annualize the Volatility}:
+    If the returns are computed over a period $\Delta t$ (e.g., daily returns), the annualized volatility $\sigma_{\text{annual}}$ is:
+    \[
+    \sigma_{\text{annual}} = \sigma \times \sqrt{\frac{252}{\Delta t}}
+    \]
+    Here, 252 is the number of trading days in a year.
+\end{enumerate}
+
+\subsubsection{Limitations of the BSM Model}
+
+While the BSM model is widely used, it has several limitations:
+\begin{enumerate}
+    \item \textbf{Constant Volatility}: The assumption of constant volatility is often violated in real markets, where volatility tends to change over time.
+    \item \textbf{No Dividends}: The model does not account for dividends, which can significantly affect option prices.
+    \item \textbf{European Options Only}: The model is only applicable to European options, which cannot be exercised before maturity.
+    \item \textbf{Market Frictions}: The model ignores transaction costs, taxes, and other market frictions.
+\end{enumerate}
+
+\section{Heston Model}
+
+The Heston model, introduced by Steven Heston in 1993, is a stochastic volatility model that extends the Black-Scholes-Merton framework by allowing volatility to be stochastic rather than constant. This model is widely used in quantitative finance for pricing options, as it captures the \textbf{volatility smile} or \textbf{skew} observed in real-world markets.
+
+\subsection{Hypotheses of the Heston Model}
+
+The Heston model is based on the following key assumptions:
+\begin{enumerate}
+    \item \textbf{Stochastic Volatility}: The volatility of the underlying asset is not constant but follows a stochastic process.
+    \item \textbf{Mean-Reverting Volatility}: The volatility process is mean-reverting, meaning it tends to revert to a long-term average over time.
+    \item \textbf{Correlation Between Asset and Volatility}: The asset price and its volatility are correlated, which allows the model to capture the leverage effect (i.e., volatility tends to increase when asset prices decrease).
+    \item \textbf{No Arbitrage}: There are no arbitrage opportunities in the market.
+    \item \textbf{Risk-Free Rate}: The risk-free interest rate is constant and known.
+    \item \textbf{No Dividends}: The underlying asset does not pay dividends during the life of the option.
+\end{enumerate}
+
+\subsection{Dynamics of the Heston Model}
+
+The Heston model describes the dynamics of the underlying asset price \( S_t \) and its instantaneous variance \( v_t \) using the following system of stochastic differential equations (SDEs):
+\[
+\frac{dS_t}{S_t} = \mu \, dt + \sqrt{v_t} \, dW_t^S
+\]
+\[
+dv_t = \kappa (\theta - v_t) \, dt + \sigma \sqrt{v_t} \, dW_t^v
+\]
+where:
+\begin{itemize}
+    \item \( S_t \): The price of the underlying asset at time \( t \).
+    \item \( v_t \): The instantaneous variance (volatility squared) of the asset at time \( t \).
+    \item \( \mu \): The expected return of the asset.
+    \item \( \kappa \): The rate of mean reversion of the variance.
+    \item \( \theta \): The long-term average variance.
+    \item \( \sigma \): The volatility of volatility (vol of vol), which controls the variance of the variance process.
+    \item \( W_t^S \) and \( W_t^v \): Two correlated Wiener processes (Brownian motions) with correlation \( \rho \), i.e., \( dW_t^S \cdot dW_t^v = \rho \, dt \).
+\end{itemize}
+
+The correlation \( \rho \) between the asset price and its volatility is a key feature of the Heston model, as it allows the model to capture the \textbf{leverage effect}.
+
+\subsection{Closed-Form Solution for European Options}
+
+The Heston model provides a semi-analytical solution for the price of European call and put options. The option price is expressed in terms of the characteristic function of the log-asset price. The price of a European call option is given by:
+\[
+C = S_0 P_1 - K e^{-r(T)} P_2
+\]
+where:
+\begin{itemize}
+    \item \( c \): Price of the European call option.
+    \item \( S_0 \): The initial price of the underlying asset.
+    \item \( K \): The strike price of the option.
+    \item \( T \): The time to maturity of the option.
+    \item \( r \): The risk-free interest rate.
+    \item \( P_1 \) and \( P_2 \): Probabilities derived from the characteristic function of the log-asset price.
+\end{itemize}
+
+The characteristic function \( \phi(u) \) of the log-asset price \( \ln(S_T) \) is given by:
+\[
+\phi(u) = \exp\left( i u \ln(S_t) + C(u, \tau) + D(u, \tau) v_t \right)
+\]
+where:
+\begin{itemize}
+    \item \( i \): The imaginary unit.
+    \item \( \tau \): The time to maturity.
+    \item \( C(u, \tau) \) and \( D(u, \tau) \): Functions defined as:
+\end{itemize}
+\[
+C(u, \tau) = r i u \tau + \frac{\kappa \theta}{\sigma^2} \left[ (\kappa - \rho \sigma i u - d) \tau - 2 \ln\left( \frac{1 - g e^{-d \tau}}{1 - g} \right) \right]
+\]
+\[
+D(u, \tau) = \frac{\kappa - \rho \sigma i u - d}{\sigma^2} \left( \frac{1 - e^{-d \tau}}{1 - g e^{-d \tau}} \right)
+\]
+\[
+d = \sqrt{(\rho \sigma i u - \kappa)^2 + \sigma^2 (i u + u^2)}
+\]
+\[
+g = \frac{\kappa - \rho \sigma i u - d}{\kappa - \rho \sigma i u + d}
+\]
+
+The probabilities \( P_1 \) and \( P_2 \) are computed using the inverse Fourier transform of the characteristic function.
+
+\subsection{Calibration of the Heston Model}
+
+The Heston model requires the calibration of five parameters:
+\begin{enumerate}
+    \item \( \kappa \): The rate of mean reversion of the variance.
+    \item \( \theta \): The long-term average variance.
+    \item \( \sigma \): The volatility of volatility.
+    \item \( \rho \): The correlation between the asset price and its volatility.
+    \item \( v_0 \): The initial variance.
+\end{enumerate}
+
+These parameters are typically calibrated using market data, such as the prices of European options, by minimizing the difference between the model prices and the market prices. The calibration process involves solving an optimization problem to find the parameter values that best fit the observed market data.
+
+\subsubsection{Mathematical Formulation of Calibration}
+
+Let \( C_{\text{market}}(K_i, T_i) \) denote the market price of a European call option with strike \( K_i \) and maturity \( T_i \), and let \( C_{\text{Heston}}(K_i, T_i; \Theta) \) denote the corresponding price computed using the Heston model with parameters \( \Theta = (\kappa, \theta, \sigma, \rho, v_0) \).
+
+The calibration problem can be formulated as a \textbf{non-linear least squares optimization problem}:
+\[
+\min_{\Theta} \sum_{i=1}^N \left( C_{\text{market}}(K_i, T_i) - C_{\text{Heston}}(K_i, T_i; \Theta) \right)^2
+\]
+where:
+\begin{itemize}
+    \item \( N \): The number of option prices used for calibration.
+    \item \( \Theta = (\kappa, \theta, \sigma, \rho, v_0) \): The vector of Heston model parameters to be calibrated.
+\end{itemize}
+
+\subsubsection{Constraints on Parameters}
+
+To ensure that the calibrated parameters are economically meaningful, the following constraints are typically imposed:
+\begin{enumerate}
+    \item \textbf{Mean Reversion Rate (\( \kappa \))}:
+    \[
+    \kappa > 0
+    \]
+    This ensures that the variance process is mean-reverting.
+    \item \textbf{Long-Term Average Variance (\( \theta \))}:
+    \[
+    \theta > 0
+    \]
+    This ensures that the long-term variance is positive.
+    \item \textbf{Volatility of Volatility (\( \sigma \))}:
+    \[
+    \sigma > 0
+    \]
+    This ensures that the volatility of volatility is positive.
+    \item \textbf{Correlation (\( \rho \))}:
+    \[
+    -1 \leq \rho \leq 1
+    \]
+    This ensures that the correlation between the asset price and its volatility is within the valid range.
+    \item \textbf{Initial Variance (\( v_0 \))}:
+    \[
+    v_0 > 0
+    \]
+    This ensures that the initial variance is positive.
+\end{enumerate}
+
+Additionally, the \textbf{Feller condition} should ideally be satisfied to prevent the variance process from becoming negative:
+\[
+2 \kappa \theta > \sigma^2
+\]
+
+\subsubsection{Optimization Techniques}
+
+The calibration problem is typically solved using numerical optimization techniques. Common approaches include:
+\begin{enumerate}
+    \item \textbf{Levenberg-Marquardt Algorithm}:
+    A popular method for solving non-linear least squares problems. It combines the Gauss-Newton method with gradient descent to ensure convergence.
+    \item \textbf{Global Optimization Methods}:
+    Techniques such as simulated annealing, genetic algorithms, or particle swarm optimization can be used to avoid local minima and find a globally optimal solution.
+    \item \textbf{Local Optimization with Multiple Starts}:
+    A local optimization algorithm (e.g., BFGS or Nelder-Mead) is run multiple times with different initial guesses to increase the likelihood of finding a good solution.
+\end{enumerate}
+
+\subsubsection{Implementation Steps}
+
+\begin{enumerate}
+    \item \textbf{Prepare Market Data}:
+    Collect market prices \( C_{\text{market}}(K_i, T_i) \) for European call options with different strikes \( K_i \) and maturities \( T_i \).
+    \item \textbf{Define the Objective Function}:
+    Implement the objective function to compute the sum of squared differences between market prices and Heston model prices:
+    \[
+    f(\Theta) = \sum_{i=1}^N \left( C_{\text{market}}(K_i, T_i) - C_{\text{Heston}}(K_i, T_i; \Theta) \right)^2
+    \]
+    \item \textbf{Set Initial Guesses and Constraints}:
+    Provide initial guesses for the parameters \( \Theta = (\kappa, \theta, \sigma, \rho, v_0) \) and define the constraints.
+    \item \textbf{Run the Optimization}:
+    Use an optimization algorithm to minimize the objective function \( f(\Theta) \) and find the optimal parameter values.
+    \item \textbf{Validate the Calibration}:
+    Compare the calibrated model prices \( C_{\text{Heston}}(K_i, T_i; \Theta) \) with the market prices \( C_{\text{market}}(K_i, T_i) \) to assess the quality of the calibration.
+\end{enumerate}
+
+\subsection{Advantages of the Heston Model}
+
+\begin{enumerate}
+    \item \textbf{Stochastic Volatility}: The model captures the time-varying nature of volatility, which is more realistic than the constant volatility assumption of the Black-Scholes model.
+    \item \textbf{Volatility Smile/Skew}: The model can reproduce the volatility smile or skew observed in real-world option prices.
+    \item \textbf{Correlation Between Asset and Volatility}: The correlation parameter \( \rho \) allows the model to capture the leverage effect.
+\end{enumerate}
+
+\subsection{Limitations of the Heston Model}
+
+\begin{enumerate}
+    \item \textbf{Complexity}: The model is more complex than the Black-Scholes model, both in terms of implementation and calibration.
+    \item \textbf{Computational Cost}: The semi-analytical solution involves numerical integration, which can be computationally expensive.
+    \item \textbf{Negative Variance}: The variance process \( v_t \) can become negative if the Feller condition \( 2 \kappa \theta > \sigma^2 \) is not satisfied, which is not realistic.
+\end{enumerate}
+
+\section{Dupire}
+\subsection{Dupire Model}
+
+The Dupire model, introduced by Bruno Dupire in 1994, is a \textbf{local volatility model} that extends the Black-Scholes framework by allowing volatility to vary with both the underlying asset price and time. Unlike stochastic volatility models (e.g., Heston), the Dupire model assumes that the volatility is a deterministic function of the asset price and time, which allows it to perfectly fit the observed market prices of European options.
+
+\subsubsection{Hypotheses of the Dupire Model}
+
+The Dupire model is based on the following key assumptions:
+\begin{enumerate}
+    \item \textbf{Local Volatility}: The volatility of the underlying asset is a deterministic function of the asset price \( S_t \) and time \( t \), denoted by \( \sigma(S_t, t) \).
+    \item \textbf{No Arbitrage}: There are no arbitrage opportunities in the market.
+    \item \textbf{Risk-Free Rate}: The risk-free interest rate is constant and known.
+    \item \textbf{No Dividends}: The underlying asset does not pay dividends during the life of the option.
+    \item \textbf{Continuous Trading}: Trading in the underlying asset and the option is continuous, with no transaction costs or taxes.
+\end{enumerate}
+
+\subsubsection{Dynamics of the Dupire Model}
+
+The Dupire model describes the dynamics of the underlying asset price \( S_t \) using the following stochastic differential equation (SDE):
+\[
+\frac{dS_t}{S_t} = \mu \, dt + \sigma(S_t, t) \, dW_t
+\]
+where:
+\begin{itemize}
+    \item \( S_t \): The price of the underlying asset at time \( t \).
+    \item \( \mu \): The expected return of the asset.
+    \item \( \sigma(S_t, t) \): The local volatility function, which depends on the asset price and time.
+    \item \( W_t \): A Wiener process (standard Brownian motion).
+\end{itemize}
+
+\subsubsection{Dupire's Local Volatility Formula}
+
+The key contribution of the Dupire model is the derivation of a formula to compute the local volatility function \( \sigma(S_t, t) \) directly from the market prices of European options. The local volatility function is given by:
+\[
+\sigma^2(K, T) = \frac{\frac{\partial C}{\partial T} + r K \frac{\partial C}{\partial K}}{\frac{1}{2} K^2 \frac{\partial^2 C}{\partial K^2}}
+\]
+where:
+\begin{itemize}
+    \item \( C(K, T) \): The market price of a European call option with strike \( K \) and maturity \( T \).
+    \item \( r \): The risk-free interest rate.
+    \item \( \frac{\partial C}{\partial T} \): The partial derivative of the option price with respect to time to maturity.
+    \item \( \frac{\partial C}{\partial K} \): The partial derivative of the option price with respect to the strike price.
+    \item \( \frac{\partial^2 C}{\partial K^2} \): The second partial derivative of the option price with respect to the strike price (related to the option's gamma).
+\end{itemize}
+
+\subsubsection{Calibration of the Dupire Model}
+
+The calibration of the Dupire model involves determining the local volatility function \( \sigma(S_t, t) \) from market data. This is typically done using the following steps:
+\begin{enumerate}
+    \item \textbf{Collect Market Data}:
+    Obtain market prices \( C_{\text{market}}(K_i, T_i) \) for European call options with different strikes \( K_i \) and maturities \( T_i \).
+    \item \textbf{Interpolate and Smooth the Data}:
+    Interpolate and smooth the market prices to obtain a continuous surface \( C(K, T) \). Common interpolation methods include cubic splines or kernel smoothing.
+    \item \textbf{Compute Partial Derivatives}:
+    Compute the partial derivatives \( \frac{\partial C}{\partial T} \), \( \frac{\partial C}{\partial K} \), and \( \frac{\partial^2 C}{\partial K^2} \) using numerical differentiation techniques.
+    \item \textbf{Calculate Local Volatility}:
+    Use Dupire's formula to compute the local volatility surface \( \sigma(K, T) \):
+    \[
+    \sigma^2(K, T) = \frac{\frac{\partial C}{\partial T} + r K \frac{\partial C}{\partial K}}{\frac{1}{2} K^2 \frac{\partial^2 C}{\partial K^2}}
+    \]
+    \item \textbf{Validate the Calibration}:
+    Compare the model prices computed using the calibrated local volatility surface with the market prices to assess the quality of the calibration.
+\end{enumerate}
+
+\subsubsection{Advantages of the Dupire Model}
+\begin{enumerate}
+    \item \textbf{Perfect Fit to Market Prices}: The Dupire model can perfectly fit the observed market prices of European options, making it a powerful tool for pricing and hedging.
+    \item \textbf{Simplicity}: Unlike stochastic volatility models, the Dupire model does not require additional stochastic processes for volatility, simplifying the implementation.
+    \item \textbf{Flexibility}: The local volatility function can capture complex volatility structures, such as smiles and skews, observed in real-world markets.
+\end{enumerate}
+
+\subsubsection{Limitations of the Dupire Model}
+\begin{enumerate}
+    \item \textbf{Deterministic Volatility}: The assumption of deterministic volatility may not capture the true dynamics of volatility, which is often stochastic in real markets.
+    \item \textbf{Sensitivity to Input Data}: The calibration process is highly sensitive to the quality of the input data and the interpolation method used.
+    \item \textbf{Limited Predictive Power}: While the model fits market prices perfectly, it may not accurately predict future volatility dynamics.
+\end{enumerate}
+
+\section{SABR}
+\subsection{SABR Model}
+
+The SABR (Stochastic Alpha Beta Rho) model, introduced by Hagan et al. in 2002, is a stochastic volatility model widely used for pricing and risk-managing options, particularly in markets with pronounced volatility smiles or skews (e.g., interest rate derivatives and FX options). The SABR model is known for its ability to capture the dynamics of implied volatility and provide accurate pricing for European options.
+
+\subsubsection{Hypotheses of the SABR Model}
+
+The SABR model is based on the following key assumptions:
+\begin{enumerate}
+    \item \textbf{Stochastic Volatility}: The volatility of the underlying asset is stochastic and follows a separate stochastic process.
+    \item \textbf{CEV (Constant Elasticity of Variance) Dynamics}: The underlying asset price follows a CEV process, which allows for flexible modeling of the asset's price dynamics.
+    \item \textbf{Correlation Between Asset and Volatility}: The asset price and its volatility are correlated, which helps capture the volatility smile or skew.
+    \item \textbf{No Arbitrage}: There are no arbitrage opportunities in the market.
+    \item \textbf{Risk-Free Rate}: The risk-free interest rate is constant and known.
+    \item \textbf{No Dividends}: The underlying asset does not pay dividends during the life of the option.
+\end{enumerate}
+
+\subsubsection{Dynamics of the SABR Model}
+
+The SABR model describes the dynamics of the underlying asset price \( F_t \) (e.g., a forward price) and its stochastic volatility \( \alpha_t \) using the following system of stochastic differential equations (SDEs):
+\[
+dF_t = \alpha_t F_t^\beta \, dW_t^F
+\]
+\[
+d\alpha_t = \nu \alpha_t \, dW_t^\alpha
+\]
+where:
+\begin{itemize}
+    \item \( F_t \): The forward price of the underlying asset at time \( t \).
+    \item \( \alpha_t \): The stochastic volatility at time \( t \).
+    \item \( \beta \): The elasticity parameter (\( 0 \leq \beta \leq 1 \)), which controls the shape of the forward price distribution.
+    \item \( \nu \): The volatility of volatility (vol of vol), which controls the variability of the volatility process.
+    \item \( W_t^F \) and \( W_t^\alpha \): Two correlated Wiener processes (Brownian motions) with correlation \( \rho \), i.e., \( dW_t^F \cdot dW_t^\alpha = \rho \, dt \).
+\end{itemize}
+
+The parameter \( \beta \) determines the distribution of the forward price:
+\begin{itemize}
+    \item \( \beta = 0 \): Normal SABR model (forward prices can become negative).
+    \item \( \beta = 1 \): Lognormal SABR model (forward prices remain positive).
+    \item \( 0 < \beta < 1 \): CEV dynamics (intermediate behavior).
+\end{itemize}
+
+\subsubsection{Implied Volatility Formula}
+
+The SABR model provides an approximate closed-form formula for the implied volatility \( \sigma_{\text{imp}}(K, F) \) of a European option with strike \( K \) and forward price \( F \):
+\[
+\sigma_{\text{imp}}(K, F) = \frac{\alpha}{(F K)^{(1-\beta)/2} \left[ 1 + \frac{(1-\beta)^2}{24} \ln^2\left(\frac{F}{K}\right) + \frac{(1-\beta)^4}{1920} \ln^4\left(\frac{F}{K}\right) \right]} \cdot \frac{z}{\chi(z)}
+\]
+where:
+\begin{itemize}
+    \item \( z = \frac{\nu}{\alpha} (F K)^{(1-\beta)/2} \ln\left(\frac{F}{K}\right) \)
+    \item \( \chi(z) = \ln\left( \frac{\sqrt{1 - 2 \rho z + z^2} + z - \rho}{1 - \rho} \right) \)
+\end{itemize}
+
+This formula is widely used in practice to compute implied volatilities for option pricing and calibration.
+
+\subsubsection{Calibration of the SABR Model}
+
+The SABR model requires the calibration of four parameters:
+\begin{enumerate}
+    \item \( \alpha \): The initial volatility.
+    \item \( \beta \): The elasticity parameter.
+    \item \( \rho \): The correlation between the asset price and its volatility.
+    \item \( \nu \): The volatility of volatility.
+\end{enumerate}
+
+These parameters are typically calibrated using market data, such as the implied volatilities of European options, by minimizing the difference between the model-implied volatilities and the market-implied volatilities.
+
+\paragraph{Calibration Steps}
+\begin{enumerate}
+    \item \textbf{Collect Market Data}:
+    Obtain market-implied volatilities \( \sigma_{\text{market}}(K_i, T_i) \) for European options with different strikes \( K_i \) and maturities \( T_i \).
+    \item \textbf{Define the Objective Function}:
+    Implement the objective function to compute the sum of squared differences between market-implied volatilities and SABR-implied volatilities:
+    \[
+    f(\Theta) = \sum_{i=1}^N \left( \sigma_{\text{market}}(K_i, T_i) - \sigma_{\text{SABR}}(K_i, T_i; \Theta) \right)^2
+    \]
+    Where \( \Theta = (\alpha, \beta, \rho, \nu) \) is the vector of SABR parameters.
+    \item \textbf{Set Initial Guesses and Constraints}:
+    Provide initial guesses for the parameters \( \Theta = (\alpha, \beta, \rho, \nu) \) and define the constraints:
+    \begin{itemize}
+        \item \( \alpha > 0 \)
+        \item \( 0 \leq \beta \leq 1 \)
+        \item \( -1 \leq \rho \leq 1 \)
+        \item \( \nu > 0 \)
+    \end{itemize}
+    \item \textbf{Run the Optimization}:
+    Use an optimization algorithm (e.g., Levenberg-Marquardt or BFGS) to minimize the objective function \( f(\Theta) \) and find the optimal parameter values.
+    \item \textbf{Validate the Calibration}:
+    Compare the calibrated SABR-implied volatilities \( \sigma_{\text{SABR}}(K_i, T_i; \Theta) \) with the market-implied volatilities \( \sigma_{\text{market}}(K_i, T_i) \) to assess the quality of the calibration.
+\end{enumerate}
+
+\subsubsection{Advantages of the SABR Model}
+
+\begin{enumerate}
+    \item \textbf{Volatility Smile/Skew}: The SABR model accurately captures the volatility smile or skew observed in real-world markets.
+    \item \textbf{Analytical Approximations}: The closed-form implied volatility formula makes the model computationally efficient.
+    \item \textbf{Flexibility}: The model can handle a wide range of market conditions by adjusting the parameters \( \beta \), \( \rho \), and \( \nu \).
+\end{enumerate}
+
+\subsubsection{Limitations of the SABR Model}
+
+\begin{enumerate}
+    \item \textbf{Approximate Formula}: The implied volatility formula is an approximation and may not be accurate for very high or very low strikes.
+    \item \textbf{Constant Parameters}: The model assumes constant parameters, which may not hold in dynamic markets.
+    \item \textbf{Limited to European Options}: The model is primarily designed for European options and may not be suitable for exotic options.
+\end{enumerate}
+
+% Chapter 2
+\chapter{Methodology}
+\section{Data Collection}
+Your methodology goes here.
+
+% Chapter 3
+\chapter{Results}
+\section{Findings}
+Your results go here.
+
+% Chapter 4
+\chapter{Discussion}
+\section{Interpretation}
+Your discussion goes here.
+
+% Conclusion
+\chapter{Conclusion}
+Your conclusion goes here.
+
+% References
+\bibliographystyle{plain}
+\bibliography{references}
+
+% Appendices
+\begin{appendices}
+\chapter{Appendix A}
+Your appendix content goes here.
+\end{appendices}
+
+\end{document}

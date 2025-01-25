@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project focuses on the implementation and simulation of stochastic models used in quantitative finance, specifically the Black-Scholes, Heston, Dupire, and SABR models. The goal is to simulate asset price trajectories, calibrate these models using real market data, and compare their performance. Additionally, the project involves designing and implementing trading algorithms based on quantitative strategies and evaluating their performance in various market conditions.
+This project focuses on the implementation and simulation of stochastic models used in quantitative finance, specifically the Black-Scholes, Heston, Dupire, and SABR models. The goal is to simulate asset price trajectories, calibrate these models using real market data, and compare their performance.
 
 ## Objectives
 
@@ -14,12 +14,6 @@ This project focuses on the implementation and simulation of stochastic models u
      - **SABR Model**: Used for modeling implied volatility in options markets.
    - Calibrate the models using real market data.
    - Compare the results of the simulations.
-
-2. **Design and Implementation of Trading Algorithms**:
-   - Develop trading algorithms based on:
-     - Quantitative strategies using technical indicators or signals from the implemented stochastic models.
-     - Python libraries to simulate market environments and test strategies under different market conditions.
-   - Evaluate the performance of the algorithms in terms of profitability and risk management.
 
 ## Project Structure
 
@@ -63,24 +57,19 @@ PFE/
 
 1. **Literature Review**:
    - Study the theoretical foundations of the stochastic models (Black-Scholes, Heston, Dupire, SABR).
-   - Review quantitative trading strategies and their implementation.
+   - Summarize the equations and the idea of each model in Memoire.pdf.
 
 2. **Model Implementation**:
    - Implement each model in Python.
    - Calibrate the models using real market data.
 
-3. **Trading Algorithm Design**:
-   - Develop trading algorithms based on the implemented models.
-   - Test the algorithms using historical data or simulated market environments.
-
-4. **Performance Evaluation**:
-   - Analyze the accuracy of the models and the performance of the trading algorithms.
+3. **Performance Evaluation**:
+   - Analyze the accuracy of the models.
    - Discuss the limitations of the models in real-world market scenarios.
 
 ## Expected Results
 
 - Optimized implementation of financial models in Python.
-- Design and validation of one or more trading algorithms.
 - A final report analyzing the accuracy of the models and the performance of the algorithms in various market scenarios.
 
 ## Authors

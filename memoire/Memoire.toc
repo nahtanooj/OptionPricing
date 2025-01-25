@@ -1,0 +1,46 @@
+\contentsline {chapter}{Abstract}{3}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Literature Review}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Black-Scholes-Merton}{4}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Black-Scholes-Merton Model}{4}{subsection.1.1.1}%
+\contentsline {subsubsection}{Hypotheses of the BSM Model}{4}{section*.3}%
+\contentsline {subsubsection}{Geometric Brownian Motion (GBM)}{5}{section*.4}%
+\contentsline {subsubsection}{The Black-Scholes-Merton Equation}{6}{section*.5}%
+\contentsline {subsubsection}{Closed-Form Solutions for European Options}{6}{section*.6}%
+\contentsline {subsubsection}{Historical Volatility Calculation}{7}{section*.7}%
+\contentsline {subsubsection}{Limitations of the BSM Model}{8}{section*.8}%
+\contentsline {section}{\numberline {1.2}Heston Model}{8}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Hypotheses of the Heston Model}{8}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Dynamics of the Heston Model}{9}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Closed-Form Solution for European Options}{10}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Calibration of the Heston Model}{11}{subsection.1.2.4}%
+\contentsline {subsubsection}{Mathematical Formulation of Calibration}{11}{section*.9}%
+\contentsline {subsubsection}{Constraints on Parameters}{11}{section*.10}%
+\contentsline {subsubsection}{Optimization Techniques}{12}{section*.11}%
+\contentsline {subsubsection}{Implementation Steps}{13}{section*.12}%
+\contentsline {subsection}{\numberline {1.2.5}Advantages of the Heston Model}{13}{subsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.2.6}Limitations of the Heston Model}{14}{subsection.1.2.6}%
+\contentsline {section}{\numberline {1.3}Dupire}{14}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Dupire Model}{14}{subsection.1.3.1}%
+\contentsline {subsubsection}{Hypotheses of the Dupire Model}{14}{section*.13}%
+\contentsline {subsubsection}{Dynamics of the Dupire Model}{15}{section*.14}%
+\contentsline {subsubsection}{Dupire's Local Volatility Formula}{15}{section*.15}%
+\contentsline {subsubsection}{Calibration of the Dupire Model}{16}{section*.16}%
+\contentsline {subsubsection}{Advantages of the Dupire Model}{16}{section*.17}%
+\contentsline {subsubsection}{Limitations of the Dupire Model}{17}{section*.18}%
+\contentsline {section}{\numberline {1.4}SABR}{17}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}SABR Model}{17}{subsection.1.4.1}%
+\contentsline {subsubsection}{Hypotheses of the SABR Model}{17}{section*.19}%
+\contentsline {subsubsection}{Dynamics of the SABR Model}{18}{section*.20}%
+\contentsline {subsubsection}{Implied Volatility Formula}{19}{section*.21}%
+\contentsline {subsubsection}{Calibration of the SABR Model}{19}{section*.22}%
+\contentsline {paragraph}{Calibration Steps}{19}{section*.23}%
+\contentsline {subsubsection}{Advantages of the SABR Model}{20}{section*.24}%
+\contentsline {subsubsection}{Limitations of the SABR Model}{20}{section*.25}%
+\contentsline {chapter}{\numberline {2}Methodology}{22}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Data Collection}{22}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Results}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Findings}{23}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Discussion}{24}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Interpretation}{24}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Conclusion}{25}{chapter.5}%
+\contentsline {chapter}{\numberline {A}Appendix A}{26}{appendix.1.A}%
