@@ -2,9 +2,13 @@ import numpy as np
 from scipy.stats import norm
 
 class BlackScholes:
+    """
+    Implements the Black-Scholes-Merton model for option pricing.
+    """
+        
     def __init__(self, r, S, K, T, sigma, option_type="C"):
         """
-        Initialize the BlackScholes class with option parameters.
+        Initialize the BlackScholes model parameters.
 
         Parameters:
             r : float - Risk-free interest rate (annualized)
