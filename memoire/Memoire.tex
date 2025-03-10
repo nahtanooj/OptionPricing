@@ -6,6 +6,8 @@
 \usepackage{natbib}
 \usepackage{appendix}
 \usepackage{amsmath} % For mathematical formulas
+\usepackage{float}
+
 
 % Hyperlink settings
 \hypersetup{
@@ -40,14 +42,14 @@
     \vspace{1cm}
     {\scshape\Large Memoire\par}
     \vspace{1.5cm}
-    {\huge\bfseries Option Pricing: Stochastichal models implementation in Python \par}
+    {\huge\bfseries Option pricing models and Systematic Trading Strategies \par}
     \vspace{2cm}
-    {\Large\itshape Bob \\ Jack \par}
+    {\Large\itshape Naama Mohamed \\ Level Jonathan \par}
     \vfill
     Supervised by\par
-    \textsc{\Large AB}
+    \textsc{\Large Abdelkader Bousabaa}
     \vfill
-    {\large 30/01/2025 \par}
+    {\large 10/03/2025 \par}
 \end{titlepage}
 
 % Table of contents
@@ -57,15 +59,22 @@
 % Abstract
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-This memoire focuses on the implementation and simulation of stochastic models in finance using Python, with applications to the Black-Scholes, Heston, Dupire, and SABR models. The primary objectives are twofold: first, to implement and simulate these stochastic models to understand and predict the dynamics of financial asset prices; and second, to design and implement trading algorithms based on these models. The methodology involves a comprehensive review of the theoretical foundations of the models, followed by their implementation and calibration using real financial data. Subsequently, trading algorithms will be developed and tested in simulated market environments to evaluate their performance in terms of profitability and risk management. The expected outcomes include optimized implementations of financial models, validated trading algorithms, and a detailed analysis of their performance under various market conditions. This work requires a strong foundation in financial mathematics, probabilities, and proficiency in Python programming, particularly with libraries such as numpy, pandas, and scipy.
+The primary objectives of this memoire are twofold: first, to implement and simulate stochastic models in finance using Python; and second, to design and implement trading strategies. 
+
+The first section will involve a comprehensive review of the theoretical foundations of the Black-Scholes, Heston, Dupire, and SABR models, followed by their implementation and calibration using real financial data. 
+
+Subsequently, trading strategies will be developed and backtested with real historical market data. Then, we will evaluate the performances of those strategies based on the assets backtested on.
+
+You will be able to find all the code this report was based on in our github pages: "LINKS".
 
 % Chapter 1
-\chapter{Literature Review}
+\chapter{Option pricing models}
+
 \section{Black-Scholes-Merton}
 
 \subsection{Black-Scholes-Merton Model}
 
-The Black-Scholes-Merton (BSM) model is a cornerstone in quantitative finance, providing a theoretical framework for pricing European-style options. Developed by Fischer Black, Myron Scholes, and Robert Merton in 1973, the model derives a closed-form solution for the price of a European call or put option under specific assumptions.
+The Black-Scholes-Merton (BSM) model is a cornerstone in quantitative finance, providing a theoretical framework for pricing \textbf{geometric brownian motion} like options. Developed by Fischer Black, Myron Scholes, and Robert Merton in 1973, the model derives a closed-form solution for the price of a European call or put option under specific assumptions.
 
 \subsubsection{Hypotheses of the BSM Model}
 
@@ -110,7 +119,6 @@ Where:
 \end{itemize}
 
 This equation shows that the asset price $S_t$ is lognormally distributed, with the logarithm of the price following a normal distribution.
-
 
 \subsubsection{The Black-Scholes-Merton Equation}
 
@@ -161,6 +169,8 @@ Where:
     \]
 \end{itemize}
 
+\subsection{Calibration and Implementation}
+
 \subsubsection{Historical Volatility Calculation}
 
 Historical volatility is a key input for the BSM model. It is calculated as the standard deviation of the logarithmic returns of the underlying asset over a specified period. The steps to compute historical volatility are as follows:
@@ -187,16 +197,6 @@ Historical volatility is a key input for the BSM model. It is calculated as the 
     \sigma_{\text{annual}} = \sigma \times \sqrt{\frac{252}{\Delta t}}
     \]
     Here, 252 is the number of trading days in a year.
-\end{enumerate}
-
-\subsubsection{Limitations of the BSM Model}
-
-While the BSM model is widely used, it has several limitations:
-\begin{enumerate}
-    \item \textbf{Constant Volatility}: The assumption of constant volatility is often violated in real markets, where volatility tends to change over time.
-    \item \textbf{No Dividends}: The model does not account for dividends, which can significantly affect option prices.
-    \item \textbf{European Options Only}: The model is only applicable to European options, which cannot be exercised before maturity.
-    \item \textbf{Market Frictions}: The model ignores transaction costs, taxes, and other market frictions.
 \end{enumerate}
 
 \section{Heston Model}
@@ -432,14 +432,15 @@ where:
     \item \( \frac{\partial^2 C}{\partial K^2} \): The second partial derivative of the option price with respect to the strike price (related to the option's gamma).
 \end{itemize}
 
-\subsubsection{Calibration of the Dupire Model}
+\subsection{Calibration and Implementation}
 
 The calibration of the Dupire model involves determining the local volatility function \( \sigma(S_t, t) \) from market data. This is typically done using the following steps:
 \begin{enumerate}
     \item \textbf{Collect Market Data}:
-    Obtain market prices \( C_{\text{market}}(K_i, T_i) \) for European call options with different strikes \( K_i \) and maturities \( T_i \).
+    We use market prices \( C_{\text{market}}(K_i, T_i) \) of options on stock AAPL from YFinance API for European options with different strikes \( K_i \) and maturities \( T_i \).
+
     \item \textbf{Interpolate and Smooth the Data}:
-    Interpolate and smooth the market prices to obtain a continuous surface \( C(K, T) \). Common interpolation methods include cubic splines or kernel smoothing.
+    Interpolate and smooth the market prices to obtain a continuous surface \( C(K, T) \). Common interpolation methods include cubic splines or kernel smoothing (we use CloughTocher2DInterpolator)
     \item \textbf{Compute Partial Derivatives}:
     Compute the partial derivatives \( \frac{\partial C}{\partial T} \), \( \frac{\partial C}{\partial K} \), and \( \frac{\partial^2 C}{\partial K^2} \) using numerical differentiation techniques.
     \item \textbf{Calculate Local Volatility}:
@@ -451,24 +452,55 @@ The calibration of the Dupire model involves determining the local volatility fu
     Compare the model prices computed using the calibrated local volatility surface with the market prices to assess the quality of the calibration.
 \end{enumerate}
 
-\subsubsection{Advantages of the Dupire Model}
-\begin{enumerate}
-    \item \textbf{Perfect Fit to Market Prices}: The Dupire model can perfectly fit the observed market prices of European options, making it a powerful tool for pricing and hedging.
-    \item \textbf{Simplicity}: Unlike stochastic volatility models, the Dupire model does not require additional stochastic processes for volatility, simplifying the implementation.
-    \item \textbf{Flexibility}: The local volatility function can capture complex volatility structures, such as smiles and skews, observed in real-world markets.
-\end{enumerate}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{bad_local_vol.png}
+\caption{Local volatility calibration for short-term maturity.}
+\label{fig:bad_local_vol}
+\end{figure}
 
-\subsubsection{Limitations of the Dupire Model}
-\begin{enumerate}
-    \item \textbf{Deterministic Volatility}: The assumption of deterministic volatility may not capture the true dynamics of volatility, which is often stochastic in real markets.
-    \item \textbf{Sensitivity to Input Data}: The calibration process is highly sensitive to the quality of the input data and the interpolation method used.
-    \item \textbf{Limited Predictive Power}: While the model fits market prices perfectly, it may not accurately predict future volatility dynamics.
-\end{enumerate}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{bad_local_vol_2.png}
+\caption{Local volatility calibration for another maturity.}
+\label{fig:bad_local_vol_2}
+\end{figure}
+
+
+\subsubsection{Issues Observed in the Calibration}
+
+The following problems are obvious:
+\begin{itemize}
+\item Extreme spikes in local volatility: The red curve (local volatility) shows unrealistic spikes, particularly for small strikes.
+\item High instability for out-of-the-money (OTM) options: The local volatility values oscillate wildly at larger strikes.
+\item Unrealistic values: Volatility values exceed reasonable market levels (e.g., 400\%+), which is not expected in practice.
+\end{itemize}
+
+\subsubsection{Potential Causes of Instability}
+The observed issues can stem from several numerical and structural problems:
+\begin{itemize}
+\item \textbf{Noise in Implied Volatility and Market Prices}:
+Implied volatility surfaces often exhibit noise due to market microstructure effects. Direct differentiation of noisy option prices amplifies errors, leading to extreme values in the local volatility calculation.
+
+\item \textbf{Poor Estimation of Second Derivatives}:
+The term $\frac{\partial^2 C}{\partial K^2}$ in the denominator is crucial. If this second derivative is small or poorly estimated, the formula will produce large and unstable values. Numerical differentiation on a sparse or irregular grid exacerbates this issue.
+
+\item \textbf{Boundary Effects and Extrapolation Issues}:
+Near the edges of the dataset (low or high strikes), extrapolation methods might introduce unrealistic behaviors. Ensuring convexity in the price surface is crucial for stability.
+\end{itemize}
+
+
+\subsubsection{Possible Solutions}
+To improve the local volatility calibration, the following solutions are recommended:
+\begin{itemize}
+\item Apply Smoothing on Implied Volatility: Use a parametric model (e.g., SABR, SVI) or a smoothing technique (e.g., Gaussian process regression) to preprocess the implied volatility surface before computing derivatives.
+\item Filter Out Unrealistic Local Volatility Values: Apply a cap on excessive local volatilities to prevent numerical explosions.
+\end{itemize}
 
 \section{SABR}
 \subsection{SABR Model}
 
-The SABR (Stochastic Alpha Beta Rho) model, introduced by Hagan et al. in 2002, is a stochastic volatility model widely used for pricing and risk-managing options, particularly in markets with pronounced volatility smiles or skews (e.g., interest rate derivatives and FX options). The SABR model is known for its ability to capture the dynamics of implied volatility and provide accurate pricing for European options.
+The SABR (Stochastic Alpha Beta Rho) model, introduced by Hagan et al. in 2002, is a \textbf{stochastic volatility} model widely used for pricing and risk-managing options, particularly in markets with pronounced volatility smiles or skews (e.g., interest rate derivatives and FX options). The SABR model is known for its ability to capture the dynamics of implied volatility and provide accurate pricing for European options.
 
 \subsubsection{Hypotheses of the SABR Model}
 
@@ -518,33 +550,20 @@ where:
     \item \( z = \frac{\nu}{\alpha} (F K)^{(1-\beta)/2} \ln\left(\frac{F}{K}\right) \)
     \item \( \chi(z) = \ln\left( \frac{\sqrt{1 - 2 \rho z + z^2} + z - \rho}{1 - \rho} \right) \)
 \end{itemize}
+\vspace{0.5cm}
 
-This formula is widely used in practice to compute implied volatilities for option pricing and calibration.
-
-\subsubsection{Calibration of the SABR Model}
-
-The SABR model requires the calibration of four parameters:
-\begin{enumerate}
-    \item \( \alpha \): The initial volatility.
-    \item \( \beta \): The elasticity parameter.
-    \item \( \rho \): The correlation between the asset price and its volatility.
-    \item \( \nu \): The volatility of volatility.
-\end{enumerate}
-
-These parameters are typically calibrated using market data, such as the implied volatilities of European options, by minimizing the difference between the model-implied volatilities and the market-implied volatilities.
-
-\paragraph{Calibration Steps}
+\subsection{Calibration and Implementation}
 \begin{enumerate}
     \item \textbf{Collect Market Data}:
-    Obtain market-implied volatilities \( \sigma_{\text{market}}(K_i, T_i) \) for European options with different strikes \( K_i \) and maturities \( T_i \).
+    We use market-implied volatilities of the stock AAPL from YFinance API for European options with different strikes \( K_i \) and maturities \( T_i \). We also need the risk-free rate associated with it (from Treasury Bills or 10Y US Bonds) and dividend yield in order to compute the forward price $F_t$
     \item \textbf{Define the Objective Function}:
-    Implement the objective function to compute the sum of squared differences between market-implied volatilities and SABR-implied volatilities:
+    We then implement the objective function to compute the sum of squared differences between market-implied volatilities and SABR-implied volatilities:
     \[
     f(\Theta) = \sum_{i=1}^N \left( \sigma_{\text{market}}(K_i, T_i) - \sigma_{\text{SABR}}(K_i, T_i; \Theta) \right)^2
     \]
     Where \( \Theta = (\alpha, \beta, \rho, \nu) \) is the vector of SABR parameters.
     \item \textbf{Set Initial Guesses and Constraints}:
-    Provide initial guesses for the parameters \( \Theta = (\alpha, \beta, \rho, \nu) \) and define the constraints:
+    We initial the parameters \( \Theta = (\alpha, \beta, \rho, \nu) \) and define the constraints:
     \begin{itemize}
         \item \( \alpha > 0 \)
         \item \( 0 \leq \beta \leq 1 \)
@@ -552,54 +571,264 @@ These parameters are typically calibrated using market data, such as the implied
         \item \( \nu > 0 \)
     \end{itemize}
     \item \textbf{Run the Optimization}:
-    Use an optimization algorithm (e.g., Levenberg-Marquardt or BFGS) to minimize the objective function \( f(\Theta) \) and find the optimal parameter values.
-    \item \textbf{Validate the Calibration}:
-    Compare the calibrated SABR-implied volatilities \( \sigma_{\text{SABR}}(K_i, T_i; \Theta) \) with the market-implied volatilities \( \sigma_{\text{market}}(K_i, T_i) \) to assess the quality of the calibration.
-\end{enumerate}
+    We then use an optimization algorithm (using Scipy) to minimize the objective function \( f(\Theta) \) and find the optimal parameter values.
+    \end{enumerate}
 
-\subsubsection{Advantages of the SABR Model}
+The comparison between the SABR model-implied volatilities and market-implied volatilities is crucial for assessing the quality of the fit. Figures \ref{fig:sabr_calibration1} and \ref{fig:sabr_calibration2} present examples of volatility smiles for different times to maturity (TTM) before and after calibration. 
 
-\begin{enumerate}
-    \item \textbf{Volatility Smile/Skew}: The SABR model accurately captures the volatility smile or skew observed in real-world markets.
-    \item \textbf{Analytical Approximations}: The closed-form implied volatility formula makes the model computationally efficient.
-    \item \textbf{Flexibility}: The model can handle a wide range of market conditions by adjusting the parameters \( \beta \), \( \rho \), and \( \nu \).
-\end{enumerate}
+\newpage
 
-\subsubsection{Limitations of the SABR Model}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{Figure_1.png}
+    \caption{SABR Calibration for Short-Term TTM (12 days to maturity)}
+    \label{fig:sabr_calibration1}
+\end{figure}
 
-\begin{enumerate}
-    \item \textbf{Approximate Formula}: The implied volatility formula is an approximation and may not be accurate for very high or very low strikes.
-    \item \textbf{Constant Parameters}: The model assumes constant parameters, which may not hold in dynamic markets.
-    \item \textbf{Limited to European Options}: The model is primarily designed for European options and may not be suitable for exotic options.
-\end{enumerate}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{sabr.png}
+    \caption{SABR Calibration for Medium-Term TTM (131 days to maturity)}
+    \label{fig:sabr_calibration2}
+\end{figure}
+
+The figures illustrate that the SABR model effectively captures the overall shape of the volatility smile, particularly in at-the-money and slightly out-of-the-money regions. However, there are notable limitations:
+
+\begin{itemize}
+    \item \textbf{Extreme Strikes:} At very low and high strikes, the model tends to diverge slightly from observed market volatilities. This is likely due to market microstructure effects and liquidity constraints, which are not explicitly accounted for in the model.
+    \item \textbf{Short-Term Expirations:} The first figure (short TTM) shows that the SABR model struggles to capture sharp volatility spikes at lower strikes, which may indicate a need for an adjusted beta parameter or a stochastic volatility extension.
+    \item \textbf{Low Volatility Environments:} The second figure (medium-term TTM) demonstrates a strong fit but highlights some deviations in deep out-of-the-money strikes. This suggests that the SABR model might require additional flexibility, such as skew adjustments or alternative volatility dynamics, to better fit market-implied volatilities.
+\end{itemize}
+
+Overall, while the SABR model is effective at modeling implied volatility, its assumptions —particularly the lognormality of returns and fixed correlation— can introduce some limitations. These limitations are more pronounced in extreme market conditions or for short-term maturities where volatility dynamics evolve rapidly.
+
+
+
 
 % Chapter 2
-\chapter{Methodology}
-\section{Data Collection}
-Your methodology goes here.
+\chapter{Systematic Trading Strategies}
+\section{Introduction}
+Systematic investment strategies use predefined rules to determine asset allocation and risk management. This report details the implementation of a trend-following strategy combined with factor-based selection, optimizing momentum and carry signals to enhance portfolio performance. This strategy is cross-asset and implies trading with 5 different indexes : SPY, EFA, IEF, VNQ and GSG. Additionally, a mean-reversion strategy on the Brent/WTI spread is examined.
 
-% Chapter 3
-\chapter{Results}
-\section{Findings}
-Your results go here.
+\section{Asset Selection and Data Collection}
+The selected asset universe comprises a diversified set of asset classes, retrieved from YFinance API in Python:
+\begin{itemize}
+    \item \textbf{Equities:} SPY (US equities), EFA (International equities)
+    \item \textbf{Fixed Income:} IEF (US Treasuries)
+    \item \textbf{Real Estate:} VNQ (Real estate investment trusts)
+    \item \textbf{Commodities:} GSG (Broad commodity index), Brent Front Month (EU Crude oil), WTI Front Month (US Crude oil)
+\end{itemize}
+These assets were chosen for their distinct risk-return characteristics and diversification benefits.
 
-% Chapter 4
-\chapter{Discussion}
-\section{Interpretation}
-Your discussion goes here.
+\begin{figure}
+    \centering
+    \includegraphics[width=1.1\textwidth]{asset_prices.png}
+    \caption{Historical Price Evolution of SPY,EFA,IEF,VNQ,GSGG}
+\end{figure}
 
-% Conclusion
+\begin{figure}
+    \centering
+    \includegraphics[width=1.1\textwidth]{wti_brent.png}
+    \caption{Historical Price Evolution Brent and WTI Front month}
+\end{figure}
+\newpage
+
+
+\section{Assumptions}
+The strategies presented in this report rely on several key assumptions:
+\begin{itemize}
+    \item Market prices are efficient enough to allow systematic strategies to capture trends and mean-reverting behaviors.
+    \item Fixed transaction costs (0.001 per price unit) .
+    \item Asset price relationships, such as the Brent/WTI spread, exhibit mean-reverting tendencies over time.
+    \item Selected assets provide sufficient liquidity for systematic trading without excessive market impact.
+    \item The chosen lookback periods for trend and mean reversion calculations adequately reflect historical patterns.
+\end{itemize}
+
+
+\section{Trend Following Strategy}
+Trend-following strategies rely on the principle that assets exhibiting upward momentum tend to continue their trajectory. This approach is implemented using a simple moving average (SMA) rule:
+\begin{equation}
+    SMA_t = \frac{1}{N} \sum_{i=0}^{N-1} P_{t-i}
+\end{equation}
+where $P_t$ is the asset price at time $t$ and $N$ is the SMA lookback period (set to 175 days in this study). An asset is considered to be in an \textbf{uptrend} if:
+\begin{equation}
+    P_t > SMA_t
+\end{equation}
+
+In that case, we should go \textbf{long} the asset, until the end of the signal.
+
+\subsection{Momentum and Carry Factors}
+Momentum is a key driver of asset returns, reflecting the tendency for past winners to outperform. We use 6-month and 12-month momentum signals:
+\begin{equation}
+    M_{6M,t} = \frac{P_t}{P_{t-126}} - 1, \quad M_{12M,t} = \frac{P_t}{P_{t-252}} - 1
+\end{equation}
+Carry is estimated using the rolling yield approach:
+\begin{equation}
+    C_t = \frac{\text{Rolling 21-day MA price}}{P_t}
+\end{equation}
+
+\subsection{Factor Combination and Ranking}
+A normalized score is computed for each factor:
+\begin{equation}
+    Z_f = \frac{f_t - \mu_f}{\sigma_f}
+\end{equation}
+where $\mu_f$ and $\sigma_f$ are the mean and standard deviation of factor $f$ over the historical period.
+
+The final ranking score is computed as:
+\begin{equation}
+    S_t = 0.5 M_{6M,t} + 0.5 M_{12M,t} + C_t
+\end{equation}
+Assets are ranked based on $S_t$, and only the top $N$ assets that are also in \textbf{uptrend} (see Section 2.4) are selected for allocation. By adjusting the parameter factor-weighting-method, we can decide to use only  $M_{6M,t}$ or $M_{12M,t}$ for the score, or any other combinations (see code-base).
+
+\subsection{De-Risking Mechanism}
+To mitigate excessive drawdowns, a rolling drawdown-based de-risking strategy is applied:
+\begin{itemize}
+    \item The portfolio’s rolling peak is computed over a 6-month window.
+    \item The drawdown is measured as ($C_r$ is the cumulative return at time $r$):
+    \begin{equation}
+        DD_t = \frac{\max_{s \in [t-120,t]} C_s - C_t}{\max_{s \in [t-120,t]} C_s}
+    \end{equation}
+    \item If the drawdown exceeds a predefined threshold (e.g., 10\%), exposure is gradually reduced by a factor (e.g., 50\%) over multiple days.
+\end{itemize}
+This approach prevents excessive losses while allowing for partial participation in market recoveries.
+
+
+\subsection{Grid Search for Hyperparameter Optimization}
+To fine-tune the trend-following strategy, a grid search is employed to optimize key hyperparameters:
+\begin{itemize}
+    \item 	\textbf{SMA period:} The lookback period for the moving average (e.g., 100, 125, 150 days).
+    \item 	\textbf{Momentum Type:} Evaluating different weighting schemes (6M vs. 12M momentum or combined momentum-carry factor).
+    \item 	\textbf{Number of Selected Assets ($N$):} Choosing the optimal number of top-ranked assets for allocation (e.g., 3,2 or 5).
+    \item 	\textbf{Rebalancing Frequency:} Testing weekly vs. monthly rebalancing to assess impact on performance and transaction costs.
+\item \textbf{Allocation Method:} Comparing equal-weight vs. volatility-adjusted weighting.
+
+\begin{itemize}
+    \item \textbf{Equal-Weight Allocation:} Each asset or trading position receives the same weight, regardless of volatility or risk.
+    \begin{equation}
+        w_i = \frac{1}{N}
+    \end{equation}
+    where:
+    \begin{itemize}
+        \item $w_i$ is the weight of asset $i$,
+        \item $N$ is the total number of assets or trades.
+    \end{itemize}
+
+    \item \textbf{Volatility-Adjusted Weighting:} Positions are sized inversely proportional to their historical volatility, ensuring more stable risk allocation.
+    \begin{equation}
+        w_i = \frac{\frac{1}{\sigma_i}}{\sum_{j=1}^{N} \frac{1}{\sigma_j}}
+    \end{equation}
+    where:
+    \begin{itemize}
+        \item $\sigma_i$ is the historical realized volatility (e.g., using a 20-day rolling window) of asset $i$,
+        \item $w_i$ is the normalized weight ensuring the sum of weights equals 1.
+    \end{itemize}
+\end{itemize}
+    \item 	\textbf{Max Drawdown over 6 months:} Maximum drawdown threshold for de-risking mechanism.
+    \item 	\textbf{Reduce exposure:} Proportion of reduced exposure.
+
+\end{itemize}
+Each combination of parameters is tested in the backtest framework, and the optimal set is selected based on maximizing the Sharpe ratio while minimizing drawdowns. 
+
+\subsection{Backtest Results}
+The strategy is backtested over a 10-year period (from 01/01/2015 to 01/02/2025), starting with a capital at 100 000 dollars. We use those indexes as our assets for the strategy : SPY, EFA, IEF, VNQ and GSG. We evaluate : Cumulative returns, Sharpe Ratio and Maximum Drawdown. The hyper-parameters used are (cf Section 2.4.4) :
+\begin{itemize}
+    \item 	\textbf{SMA period:} 175
+    \item 	\textbf{Momentum Type:} Momentum 12M (e.g, the score function is $S_t$ = $M_{12M,t}$)
+    \item 	\textbf{Number of Selected Assets :} 2
+    \item 	\textbf{Rebalancing Frequency:} Weekly.
+    \item 	\textbf{Allocation Method:} volatility-adjusted weighting.
+    \item 	\textbf{Max Drawdown over 6 months:} 0.1.
+    \item 	\textbf{Reduce exposure:} 0.5.
+\end{itemize}
+
+
+
+\subsection{Performance Analysis}
+
+The trend-following strategy significantly outperformed the static equal-weighted benchmark:
+\begin{itemize}
+    \item Total Net Return: 170.95\% vs. 79.96\% (benchmark)
+    \item Sharpe Ratio: 1.02 vs. 0.53
+    \item Maximum Drawdown: 16.26\% vs. 28.28\%
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.2\textwidth]{asset_trend_post_cost.png}
+    \caption{Cumulative Returns of the Trend Strategy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.2\textwidth]{asset_trend_benchmark.png}
+    \caption{Cumulative Returns of the benchmark (equally-weighted portfolio on the 5 indexes)}
+\end{figure}
+
+
+The trend-following strategy not only delivered higher returns, but also exhibited better risk-adjusted performance and lower drawdowns, suggesting that dynamic asset selection and de-risking contributed to superior capital preservation.
+\\
+\\
+Despite its strong performance, the strategy has some limitations:
+
+\begin{itemize}
+    \item High Sensitivity to Transaction Costs: Weekly rebalancing increases turnover, potentially eroding net returns when trading costs are high.
+    \item Sector Concentration Risks: A sharp portfolio value increase in 2022 coincides with strong commodity performance, highlighting exposure to sectoral trends. This could lead to over-reliance on specific market conditions.
+    \item Lag in Market Regime Changes: Trend-following strategies react with a lag, making them vulnerable to sudden market reversals where short-term volatility dominates.
+\end{itemize}
+
+Overall, the strategy demonstrates strong return generation with controlled risk, outperforming a static allocation. However, transaction cost efficiency and exposure diversification remain key areas for optimization in future research.
+
+
+\section{Mean Reversion Strategy on Brent/WTI Spread}
+Mean-reversion strategies rely on the assumption that asset spreads revert to their historical mean. We use the spread between Brent and WTI crude oil prices, defining it as:
+\begin{equation}
+    Spread_t = P_{Brent, t} - P_{WTI, t}
+\end{equation}
+A rolling mean and standard deviation are computed to define a normalized Z-score:
+\begin{equation}
+    Z_t = \frac{Spread_t - \mu_{Spread}}{\sigma_{Spread}}
+\end{equation}
+A position is taken when:
+\begin{itemize}
+    \item $Z_t < -2$: Long the spread (buy Brent, sell WTI)
+    \item $Z_t > 2$: Short the spread (sell Brent, buy WTI)
+    \item $-0.5 < Z_t < 0.5$: Close the position
+\end{itemize}
+To avoid extreme deviations, a safeguard is introduced:
+\begin{equation}
+    \text{Extreme Condition} = |Spread_t| > |\mu_{Spread} + 1.5 \times \sigma_{Spread}|
+\end{equation}
+where positions are not entered if the spread is in an extreme condition.
+
+
+\subsection{Backtest Results and Performance Analysis}
+The strategy is backtested over a 10-year period (from 01/01/2015 to 01/02/2025), starting with a capital at 100 000 dollars.
+The mean reversion strategy based on the Brent/WTI spread showed stable but lower returns:
+
+\begin{itemize}
+    \item Total Net Return: 40.02\%
+    \item Sharpe Ratio: 0.42
+    \item Maximum Drawdown: 11.85\%
+\end{itemize}
+
+\newpage
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.2\textwidth]{wti_brent_spread.png}
+    \caption{Cumulative Returns of the Strategies}
+\end{figure}
+
+This strategy exhibited lower volatility and smaller drawdowns, making it a more conservative approach. However, it also has notable limitations:
+
+\begin{itemize}
+    \item Limited Profit Potential: Mean reversion strategies tend to generate smaller returns compared to trend-following strategies.
+    \item Sensitivity to Spread Behavior: The profitability depends on the stability of the Brent/WTI spread reverting to its historical mean.
+\end{itemize}
+
+
 \chapter{Conclusion}
-Your conclusion goes here.
-
-% References
-\bibliographystyle{plain}
-\bibliography{references}
-
-% Appendices
-\begin{appendices}
-\chapter{Appendix A}
-Your appendix content goes here.
-\end{appendices}
+The second part details two systematic strategies: trend-following with factor-based selection cross-asset (5 indexes fund) and a mean-reversion strategy on the Brent/WTI spread. The combination of these approaches allows for diversified risk-adjusted returns. Future research could refine and blend the two strategies within a portfolio, this could lead to general improve of Sharpe Ratio and performance.
 
 \end{document}
+

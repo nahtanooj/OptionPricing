@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.29)  25 JAN 2025 15:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.29)  10 MAR 2025 15:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.tex
-(/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.tex
+**/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.tex
+(/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/base/report.cls
@@ -246,55 +246,56 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
+) (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count294
+\float@exts=\toks26
+\float@box=\box53
+\@float@everytoks=\toks27
+\@floatcapt=\box54
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 15.
+Package hyperref Info: Option `colorlinks' set `true' on input line 17.
  (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count294
-\l__pdf_internal_box=\box53
-) (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.aux)
+\l__color_backend_stack_int=\count295
+\l__pdf_internal_box=\box55
+) (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.aux)
 \openout1 = `Memoire.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
  (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count295
+\scratchcounter=\count296
 \scratchdimen=\dimen164
-\scratchbox=\box54
-\nofMPsegments=\count296
-\nofMParguments=\count297
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count298
+\scratchbox=\box56
+\nofMPsegments=\count297
+\nofMParguments=\count298
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count299
 \MPscratchDim=\dimen165
-\MPnumerator=\count299
-\makeMPintoPDFobject=\count300
-\everyMPtoPDFconversion=\toks27
+\MPnumerator=\count300
+\makeMPintoPDFobject=\count301
+\everyMPtoPDFconversion=\toks29
 ) (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
- (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
  (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/graphics/color.sty
@@ -304,8 +305,8 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
  (/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 33.
- (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.out) (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.out)
+Package hyperref Info: Link coloring ON on input line 35.
+ (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.out) (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.out)
 \@outlinefile=\write3
 \openout3 = `Memoire.out'.
 
@@ -344,18 +345,18 @@ Package hyperref Info: Link coloring ON on input line 33.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<logo-tsp.jpg, id=96, 284.7438pt x 284.7438pt>
+<logo-tsp.jpg, id=132, 284.7438pt x 284.7438pt>
 File: logo-tsp.jpg Graphic file (type jpg)
 <use logo-tsp.jpg>
-Package pdftex.def Info: logo-tsp.jpg  used on input line 38.
+Package pdftex.def Info: logo-tsp.jpg  used on input line 40.
 (pdftex.def)             Requested size: 119.50279pt x 119.50034pt.
 [1
 
-{/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/logo-tsp.jpg>] (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.toc
+{/opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/logo-tsp.jpg>] (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.toc
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.45 ...{\numberline {5}Conclusion}{25}{chapter.5}
+l.42 ...m and Carry Factors}{26}{subsection.2.4.1}
                                                   % [1
 
 ])
@@ -373,48 +374,170 @@ Overfull \hbox (24.96762pt too wide) in paragraph at lines 370--372
 []\OT1/cmr/bx/n/10.95 Validate the Cal-i-bra-tion\OT1/cmr/m/n/10.95 : Com-pare the cal-i-brated model prices $\OML/cmm/m/it/10.95 C[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 K[]; T[]\OT1/cmr/m/n/10.95 ; ^^B)$
  []
 
-[13] [14] [15] [16] [17] [18] [19] [20] [21]
+[13] [14]
+Overfull \hbox (1.5802pt too wide) in paragraph at lines 442--444
+\OT1/cmr/m/n/10.95 in-clude cu-bic splines or ker-nel smooth-ing (we use CloughTocher2DInterpolator) 
+ []
+
+[15]
+<bad_local_vol.png, id=311, 578.16pt x 361.35pt>
+File: bad_local_vol.png Graphic file (type png)
+<use bad_local_vol.png>
+Package pdftex.def Info: bad_local_vol.png  used on input line 457.
+(pdftex.def)             Requested size: 398.3386pt x 248.96234pt.
+<bad_local_vol_2.png, id=313, 578.16pt x 361.35pt>
+File: bad_local_vol_2.png Graphic file (type png)
+<use bad_local_vol_2.png>
+Package pdftex.def Info: bad_local_vol_2.png  used on input line 464.
+(pdftex.def)             Requested size: 398.3386pt x 248.96234pt.
+ [16
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.468 
+       </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/bad_local_vol.png>] [17
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.485 \item \textbf
+                   {Poor Estimation of Second Derivatives}: </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/bad_local_vol_2.png>] [18] [19] [20] [21]
+<Figure_1.png, id=365, 578.16pt x 361.35pt>
+File: Figure_1.png Graphic file (type png)
+<use Figure_1.png>
+Package pdftex.def Info: Figure_1.png  used on input line 583.
+(pdftex.def)             Requested size: 398.3386pt x 248.96234pt.
+<sabr.png, id=366, 578.16pt x 361.35pt>
+File: sabr.png Graphic file (type png)
+<use sabr.png>
+Package pdftex.def Info: sabr.png  used on input line 590.
+(pdftex.def)             Requested size: 398.3386pt x 248.96234pt.
+ [22
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.596 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.596 
+       </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Figure_1.png> </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/sabr.png>] [23]
 Chapter 2.
-[22
+<asset_prices.png, id=377, 867.24pt x 433.62pt>
+File: asset_prices.png Graphic file (type png)
+<use asset_prices.png>
+Package pdftex.def Info: asset_prices.png  used on input line 625.
+(pdftex.def)             Requested size: 438.17488pt x 219.09216pt.
 
-]
-Chapter 3.
-[23
+Overfull \hbox (39.83629pt too wide) in paragraph at lines 625--626
+ [][] 
+ []
 
-]
-Chapter 4.
+<wti_brent.png, id=378, 867.24pt x 433.62pt>
+File: wti_brent.png Graphic file (type png)
+<use wti_brent.png>
+Package pdftex.def Info: wti_brent.png  used on input line 631.
+(pdftex.def)             Requested size: 438.17488pt x 219.09216pt.
+
+Overfull \hbox (39.83629pt too wide) in paragraph at lines 631--632
+ [][] 
+ []
+
 [24
 
-]
-Chapter 5.
-No file Memoire.bbl.
-[25
+] [25
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.634 \newpage
+              
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.634 \newpage
+               </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/asset_prices.png> </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/wti_brent.png>]
+Overfull \hbox (4.71196pt too wide) in paragraph at lines 642--643
+[]\OT1/cmr/m/n/10.95 Asset price re-la-tion-ships, such as the Brent/WTI spread, ex-hibit mean-reverting
+ []
 
-]
-Appendix A.
-[26
+[26] [27] [28]
+<asset_trend_post_cost.png, id=415, 867.24pt x 433.62pt>
+File: asset_trend_post_cost.png Graphic file (type png)
+<use asset_trend_post_cost.png>
+Package pdftex.def Info: asset_trend_post_cost.png  used on input line 757.
+(pdftex.def)             Requested size: 478.00508pt x 239.0012pt.
 
-] (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.aux)
+Overfull \hbox (79.66649pt too wide) in paragraph at lines 757--758
+ [][] 
+ []
+
+[29]
+<asset_trend_benchmark.png, id=420, 867.24pt x 433.62pt>
+File: asset_trend_benchmark.png Graphic file (type png)
+<use asset_trend_benchmark.png>
+Package pdftex.def Info: asset_trend_benchmark.png  used on input line 763.
+(pdftex.def)             Requested size: 478.00508pt x 239.0012pt.
+
+Overfull \hbox (79.66649pt too wide) in paragraph at lines 763--764
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 768--772
+
+ []
+
+[30
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.772 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.772 
+       </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/asset_trend_post_cost.png> </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/asset_trend_benchmark.png>] [31] [32]
+<wti_brent_spread.png, id=441, 867.24pt x 433.62pt>
+File: wti_brent_spread.png Graphic file (type png)
+<use wti_brent_spread.png>
+Package pdftex.def Info: wti_brent_spread.png  used on input line 818.
+(pdftex.def)             Requested size: 478.00508pt x 239.0012pt.
+
+Overfull \hbox (79.66649pt too wide) in paragraph at lines 818--819
+ [][] 
+ []
+
+[33
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.830 \chapter
+              {Conclusion} </Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/wti_brent_spread.png>]
+Chapter 3.
+[34
+
+] (/Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Memoire.out' has not changed.
-(rerunfilecheck)             Checksum: 6407C31FF134B6D7B9AF47D7BD3CE5A8;3294.
+(rerunfilecheck)             Checksum: 27064CDBDF612DF6A618E1AAC9520C14;5839.
  ) 
 Here is how much of TeX's memory you used:
- 10299 strings out of 474116
- 161389 string characters out of 5732612
- 1935187 words of memory out of 5000000
- 32383 multiletter control sequences out of 15000+600000
+ 10419 strings out of 474116
+ 163602 string characters out of 5732612
+ 1936187 words of memory out of 5000000
+ 32491 multiletter control sequences out of 15000+600000
  565803 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,79p,1237b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on /Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/Memoire/Memoire.pdf (27 pages, 332249 bytes).
+ 75i,6n,79p,580b,592s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></opt/homebrew/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on /Users/jonathanlevel/Desktop/Scolaire/Supérieur/TSP/3A/PFE/Option_Pricing/memoire/Memoire.pdf (35 pages, 717982 bytes).
 PDF statistics:
- 452 PDF objects out of 1000 (max. 8388607)
- 390 compressed objects within 4 object streams
- 158 named destinations out of 1000 (max. 500000)
- 190 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 554 PDF objects out of 1000 (max. 8388607)
+ 463 compressed objects within 5 object streams
+ 170 named destinations out of 1000 (max. 500000)
+ 307 words of extra memory for PDF output out of 10000 (max. 10000000)
 
