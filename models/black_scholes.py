@@ -55,3 +55,13 @@ class BlackScholes:
             raise ValueError("Invalid option type. Use 'C' for Call or 'P' for Put.")
 
         return price
+    
+    def calculate_vega(self):
+        """
+        Calcule le vega de l'option (sensibilité du prix à la volatilité).
+
+        Returns:
+            float: Vega
+        """
+        d1, _ = self.calculate_d1_d2()
+        return self.S * norm.pdf(d1) * np.sqrt(self.T)

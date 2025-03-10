@@ -4,7 +4,7 @@ pandas==1.5.3
 scipy==1.10.0
 
 # Financial libraries
-yfinance==0.2.18
+yfinance==0.2.54
 
 # Visualization libraries
 matplotlib==3.7.1
